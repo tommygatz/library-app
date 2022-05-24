@@ -79,6 +79,7 @@ function deleteBook(num) {
     selectedElement.remove();
     myLibrary.splice(num, 1);
     console.log(myLibrary)
+    updateLocalStorage();
     updateTotal();
 }
 
