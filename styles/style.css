@@ -24,7 +24,7 @@ h2 {
 }
 
 h3 {
-    font-size: 3rem;
+    font-size: 2.25rem;
 }
 
 h4 {
@@ -167,10 +167,30 @@ body {
     display: flex; 
     flex-direction: column;
     justify-content: center;
-    line-height: 5rem;
+    align-items: center;
+    line-height: 3rem;
     padding: 20px;
 }
 
 .card:hover {
     transform: scale(1.05);
+}
+
+.is-read-button {
+    width: 100px;
+    height: 30px;
+    margin: 25% 0px 10% 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    color: white;
+}
+
+.not-read {
+    background-color: rgb(228, 69, 69);
+}
+
+.is-read {
+    background-color: rgb(76, 167, 76);
 }

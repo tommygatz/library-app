@@ -28,23 +28,29 @@ class Book {
 }
 
 function createCard(item, index) {
-    var checked = "";
+    var read = "";
+    var readText = "";
     if(item.isRead) {
-        checked = "checked"
-    };
+        read = "is-read";
+        readText = "Read";
+    } else {
+        read = "not-read";
+        readText = "Not Read";
+    }
 
     const card = document.createElement("div");
     card.className = "card" ;
     card.id = `book-${index}`;
 
     card.innerHTML = 
-    `<p>Title: ${item.title}</p>
-    <p>Author: ${item.author}</p>
-    <p>Pages: ${item.pages}</p>
-    <p>Read yet?: <input type="checkbox" id="is-read-checkbox" name="is-read" ${checked}/></p>
+    `<h3>${item.title}</h3>
+    <p>by ${item.author}</p>
+    <p>${item.pages} pages</p>
+    <div id="is-read-button-${index}" class="is-read-button ${read}" onclick="toggleRead(${index})"><p class="read-text">${readText}</p></div>
     <button onclick="deleteBook(${index})">Delete Book</button>`;
 
     document.getElementById('main-content').appendChild(card);
+
 }
 
 function addBookToLibrary() {
@@ -54,12 +60,11 @@ function addBookToLibrary() {
     var isRead = prompt("Have you read this book yet? (Y/N)", "N");
     var read = (isRead=="Y" || isRead=="y");
 
-
     const newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
+    console.log(newBook)
 
-    let myArray = myLibrary[myLibrary.length - 1];
-    createCard(myArray);
+    createCard(myLibrary[myLibrary.length - 1], (myLibrary.length - 1));
     updateLocalStorage();
     updateTotal();
 }
@@ -83,3 +88,23 @@ function deleteBook(num) {
     updateTotal();
 }
 
+function toggleRead(index) {
+    const element = document.getElementById(`is-read-button-${index}`);
+    element.classList.toggle("not-read");
+    element.classList.toggle("is-read");
+
+
+    readValue = myLibrary[index];
+    if(myLibrary[index].isRead){
+        myLibrary[index].isRead = false;
+        element.innerHTML = '<p class="read-text">Not Read</p>';
+    } else {
+        myLibrary[index].isRead = true;
+        element.innerHTML = '<p class="read-text">Read</p>';
+    }
+
+
+
+    console.log(myLibrary[index].isRead);
+    updateLocalStorage();
+}
