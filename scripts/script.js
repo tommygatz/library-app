@@ -1,3 +1,10 @@
+google.books.load();
+  
+function initialize() {
+  var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+  viewer.load('ISBN:0738531367');
+}
+
 let myLibrary = [];
 myLibrary = JSON.parse(localStorage.getItem("savedLibrary"));
 console.log("Saved Library: ", myLibrary);
@@ -39,19 +46,20 @@ function createCard(item, index) {
     card.id = `book-${index}`;
 
     card.innerHTML = 
-    `<div class="card-face card-front">
-    <h4>Front</h4>
+    `<div class="card-face card-front" id="viewer-canvas">
     </div>
 
     <div class="card-face card-back">
     <h4>Title: ${item.title}</h4>
     <h4>Author: ${item.author}</h4>
     <h4>Pages: ${item.pages}</h4>
-    <h4>Read yet?: <input type="checkbox" id="is-read-checkbox" name="is-read" ${checked}/></h4>
+    <h4>Read yet?: <input type="checkbox" name="is-read" ${checked}/></h4>
     <button onclick="deleteBook(${index})">Delete Book</button>
     </div>`;
   
     document.getElementById('main-content').appendChild(card);
+
+    
 }
 
 function addBookToLibrary() {
@@ -69,6 +77,7 @@ function addBookToLibrary() {
     createCard(myArray, myArray.index);
     updateLocalStorage();
     updateTotal();
+    location.reload();
 }
 
 function clearStorage() {
@@ -78,14 +87,13 @@ function clearStorage() {
 
 function updateLocalStorage() {
     localStorage.setItem("savedLibrary", JSON.stringify(myLibrary));
-    // console.log(JSON.parse(localStorage.getItem("savedLibrary")));
 }
 
 function deleteBook(num) {
     const selectedElement = document.getElementById(`book-${num}`);
+    selectedElement.
     selectedElement.remove();
     myLibrary.splice(num, 1);
-    // console.log(myLibrary)
     updateLocalStorage();
     updateTotal();
 }
@@ -97,7 +105,6 @@ function flipCard(index) {
     } catch {
         return
     }
-    // flip = document.getElementById(`book-${index}-back`);
-    // flip.classList.toggle("flipped");
 }
+
 

@@ -185,7 +185,13 @@ body {
 
 .card-back {
     transform: rotateY(180deg);
+    
 }
+
+.card-face > h4 > input  {
+    z-index: 50;
+}
+
 
 .card.flipped {
     transform: rotateY(180deg);

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <link rel="stylesheet" href="./styles/reset.css">
     <link rel="stylesheet" href="./styles/style.css">
     <meta charset="UTF-8">
@@ -24,23 +25,15 @@
         </div>
     </div>
     <div id="main-content">
-        <!-- <div id="sample-card" class="card"></div> -->
-
-
+        <div id="viewerCanvas" class="card"></div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
     <script src="./scripts/script.js"></script>
+    
+    <script type="text/javascript">
+
+        google.books.setOnLoadCallback(initialize);
+        
+    </script>
 </body>
 </html>
