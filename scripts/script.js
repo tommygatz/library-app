@@ -16,7 +16,7 @@ function updateTotal() {
     totalBooks.innerHTML = `Total Books: ${total}`;
 }
 
-updateTotal();
+window.onload = updateTotal() ;
 
 class Book {
     constructor(title, author, pages, read) {
@@ -34,16 +34,23 @@ function createCard(item, index) {
     };
 
     const card = document.createElement("div");
+    card.setAttribute("onclick", `flipCard(${index})`)
     card.className = "card" ;
     card.id = `book-${index}`;
 
     card.innerHTML = 
-    `<h4>Title: ${item.title}</h4>
+    `<div class="card-face card-front">
+    <h4>Front</h4>
+    </div>
+
+    <div class="card-face card-back">
+    <h4>Title: ${item.title}</h4>
     <h4>Author: ${item.author}</h4>
     <h4>Pages: ${item.pages}</h4>
     <h4>Read yet?: <input type="checkbox" id="is-read-checkbox" name="is-read" ${checked}/></h4>
-    <button onclick="deleteBook(${index})">Delete Book</button>`;
-
+    <button onclick="deleteBook(${index})">Delete Book</button>
+    </div>`;
+  
     document.getElementById('main-content').appendChild(card);
 }
 
@@ -59,7 +66,7 @@ function addBookToLibrary() {
     myLibrary.push(newBook);
 
     let myArray = myLibrary[myLibrary.length - 1];
-    createCard(myArray);
+    createCard(myArray, myArray.index);
     updateLocalStorage();
     updateTotal();
 }
@@ -71,14 +78,26 @@ function clearStorage() {
 
 function updateLocalStorage() {
     localStorage.setItem("savedLibrary", JSON.stringify(myLibrary));
-    console.log(JSON.parse(localStorage.getItem("savedLibrary")));
+    // console.log(JSON.parse(localStorage.getItem("savedLibrary")));
 }
 
 function deleteBook(num) {
     const selectedElement = document.getElementById(`book-${num}`);
     selectedElement.remove();
     myLibrary.splice(num, 1);
-    console.log(myLibrary)
+    // console.log(myLibrary)
+    updateLocalStorage();
     updateTotal();
+}
+
+function flipCard(index) {
+    var flip = document.getElementById(`book-${index}`);
+    try {
+        flip.classList.toggle("flipped");
+    } catch {
+        return
+    }
+    // flip = document.getElementById(`book-${index}-back`);
+    // flip.classList.toggle("flipped");
 }
 
