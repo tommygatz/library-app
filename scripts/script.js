@@ -38,10 +38,10 @@ function createCard(item, index) {
     card.id = `book-${index}`;
 
     card.innerHTML = 
-    `<h4>Title: ${item.title}</h4>
-    <h4>Author: ${item.author}</h4>
-    <h4>Pages: ${item.pages}</h4>
-    <h4>Read yet?: <input type="checkbox" id="is-read-checkbox" name="is-read" ${checked}/></h4>
+    `<p>Title: ${item.title}</p>
+    <p>Author: ${item.author}</p>
+    <p>Pages: ${item.pages}</p>
+    <p>Read yet?: <input type="checkbox" id="is-read-checkbox" name="is-read" ${checked}/></p>
     <button onclick="deleteBook(${index})">Delete Book</button>`;
 
     document.getElementById('main-content').appendChild(card);
