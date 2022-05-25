@@ -43,11 +43,11 @@ function createCard(item, index) {
     card.id = `book-${index}`;
 
     card.innerHTML = 
-    `<h3>${item.title}</h3>
+    `<div class="book-text-container"><h4>${item.title}</h4>
     <p>by ${item.author}</p>
-    <p>${item.pages} pages</p>
-    <div id="is-read-button-${index}" class="is-read-button ${read}" onclick="toggleRead(${index})"><p class="read-text">${readText}</p></div>
-    <button onclick="deleteBook(${index})">Delete Book</button>`;
+    <p>${item.pages} pages</p></div>
+    <div class="button-container"><div id="is-read-button-${index}" class="is-read-button ${read}" onclick="toggleRead(${index})"><p class="read-text">${readText}</p></div>
+    <button onclick="deleteBook(${index})"><span>Delete Book</span></button></div>`;
 
     document.getElementById('main-content').appendChild(card);
 
@@ -76,14 +76,13 @@ function clearStorage() {
 
 function updateLocalStorage() {
     localStorage.setItem("savedLibrary", JSON.stringify(myLibrary));
-    console.log(JSON.parse(localStorage.getItem("savedLibrary")));
+    // console.log(JSON.parse(localStorage.getItem("savedLibrary")));
 }
 
 function deleteBook(num) {
     const selectedElement = document.getElementById(`book-${num}`);
     selectedElement.remove();
     myLibrary.splice(num, 1);
-    console.log(myLibrary)
     updateLocalStorage();
     updateTotal();
 }
@@ -102,9 +101,5 @@ function toggleRead(index) {
         myLibrary[index].isRead = true;
         element.innerHTML = '<p class="read-text">Read</p>';
     }
-
-
-
-    console.log(myLibrary[index].isRead);
     updateLocalStorage();
 }
